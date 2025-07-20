@@ -1,0 +1,40 @@
+swagger: '2.0'
+info:
+  title: Terakoya Labo Management Role API
+  description: API Gateway definition for the Ktor Terakoya Labo Management User Role Service.
+  version: 1.0.0
+schemes:
+  - https
+produces:
+  - text/plain
+
+# Authentication Provider
+securityDefinitions:
+  firebase:
+    authorizationUrl: ""
+    flow: "implicit"
+    type: "oauth2"
+    x-google-issuer: "https://securetoken.google.com/terakoya-house-fb"
+    x-google-jwks_uri: "https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com"
+    x-google-audiences: "terakoya-house-fb"
+    x-google-backend:
+      url: https://terakoyalabo-api-management-role-511905671804.asia-northeast1.run.app
+      protocol: h2
+      jwt_audience: https://terakoyalabo-api-management-role-511905671804.asia-northeast1.run.app
+
+paths:
+  /api/v1/management-role/graphql:
+    post:
+      summary: GraphQL API Endpoint
+      description: Services backend APIs by Ktor API.
+      operationId: graphqlApi
+      x-google-backend:
+        address: https://terakoyalabo-api-management-role-511905671804.asia-northeast1.run.app
+        protocol: h2
+        path_translation: APPEND_PATH_TO_ADDRESS
+      security:
+        - firebase: []
+      responses:
+        '200':
+          description: GraphQL response.
+definitions: {}
