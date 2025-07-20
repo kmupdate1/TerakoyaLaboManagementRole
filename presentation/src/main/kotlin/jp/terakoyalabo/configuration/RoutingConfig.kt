@@ -8,9 +8,9 @@ fun Application.configureRouting() {
     routing {
         route("/api") {
             route("/v1") {
-                route("/travel") {
+                route("/management-role") {
                     // graphQLPostRoute("/graphql")
-                    get("/graphql") { call.respondText { "Hello from Management Role API." } }
+                    post("/graphql") { call.respondText { "Hello from Management Role API." } }
                 }
             }
         }
