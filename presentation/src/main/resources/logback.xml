@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <property file="logback.properties" />
+
+    <property name="LOG_FILE_NAME" value="${LOG_FILE_NAME:-travel}" />
+    <property name="LOG_FILE_PATH" value="${LOG_FILE_PATH:-logs/dev}" />
+    <property name="LOG_MAX_HISTORY_DAYS" value="${LOG_MAX_HISTORY_DAYS:-7}" />
+    <property name="LOG_TOTAL_SIZE_CAP_GB" value="${LOG_TOTAL_SIZE_CAP_GB:-1}" />
+    <property name="LOG_MAX_FILE_SIZE_MB" value="${LOG_MAX_FILE_SIZE_MB:-100}" />
+    <property name="ROOT_LOG_LEVEL" value="${ROOT_LOG_LEVEL:-INFO}" />
+
+    <property
+            name="LOG_PATTERN"
+            value="${LOG_PATTERN:-%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n}"
+    />
+
+    <appender name="STUDIO" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE_PATH}/${LOG_FILE_NAME}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_FILE_PATH}/${LOG_FILE_NAME}.%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${LOG_MAX_FILE_SIZE_MB}MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>${LOG_MAX_HISTORY_DAYS}</maxHistory>
+            <totalSizeCap>${LOG_TOTAL_SIZE_CAP_GB}GB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <root level="${ROOT_LOG_LEVEL}">
+        <appender-ref ref="STUDIO" />
+        <appender-ref ref="FILE" />
+    </root>
+
+    <logger name="jp.terakoyalabo" level="TRACE" additivity="false">
+        <appender-ref ref="STUDIO" />
+        <appender-ref ref="FILE" />
+    </logger>
+    <logger name="io.ktor.server.routing" level="TRACE" additivity="false">
+        <appender-ref ref="STUDIO" />
+        <appender-ref ref="FILE" />
+    </logger>
+</configuration>
