@@ -34,6 +34,11 @@ paths:
         path_translation: APPEND_PATH_TO_ADDRESS
       security:
         - firebase: []
+      x-google-security:
+        - jwt_claims: [ 'user_id' ]
+          header: "X-Authenticated-User-Id"
+        - jwt_claims: [ 'email' ]
+          header: "X-Authenticated-User-email"
       responses:
         '200':
           description: GraphQL response.
