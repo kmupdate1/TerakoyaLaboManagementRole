@@ -1,4 +1,7 @@
 object Dependencies {
+    object Kotlinx {
+        const val SERIALIZATION = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.KOTLINX}"
+    }
     object Ktor {
         object Client {
             const val CORE = "io.ktor:ktor-client-core:${Versions.KTOR}"
