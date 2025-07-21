@@ -1,6 +1,5 @@
 plugins {
     alias { libs.plugins.kotlin.jvm }
-    alias { libs.plugins.kotlin.plugin.serialization }
     alias { libs.plugins.johnrengelman.shadow }
     id("application")
 }
@@ -13,8 +12,6 @@ application {
 }
 
 dependencies {
-    implementation(Dependencies.Kotlinx.SERIALIZATION)
-
     implementation(Dependencies.Ktor.Server.CORE)
     implementation(Dependencies.Ktor.Server.CIO)
     implementation(Dependencies.Ktor.Server.STATUS_PAGES)
@@ -26,6 +23,9 @@ dependencies {
     implementation(Dependencies.Koin.CORE)
     implementation(Dependencies.Koin.KTOR)
     implementation(Dependencies.Koin.LOGGER_SLF4J)
+
+    implementation(Dependencies.ApiGateway.CORE)
+    implementation(Dependencies.ApiGateway.GCP)
 
     implementation(Dependencies.Logback.CLASSIC)
 
@@ -42,4 +42,3 @@ tasks.shadowJar {
     archiveClassifier.set("")
     archiveVersion.set("")
 }
-

@@ -27,6 +27,11 @@ object Dependencies {
         const val KTOR = "io.insert-koin:koin-ktor:${Versions.KOIN}"
         const val LOGGER_SLF4J = "io.insert-koin:koin-logger-slf4j:${Versions.KOIN}"
     }
+
+    object ApiGateway {
+        const val CORE = "jp.lax256:ktor-apigateway-core:${Versions.API_GATEWAY}"
+        const val GCP = "jp.lax256:ktor-apigateway-gcp:${Versions.API_GATEWAY}"
+    }
     object Logback {
         const val CLASSIC = "ch.qos.logback:logback-classic:${Versions.LOGBACK}"
     }
