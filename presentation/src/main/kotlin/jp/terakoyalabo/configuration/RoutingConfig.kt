@@ -17,7 +17,9 @@ fun Application.configureRouting() {
                         val xAuthenticatedUserId = call.request.headers[HttpHeaders.XAuthenticatedUserId]
                         val xAuthenticatedUserEmail = call.request.headers[HttpHeaders.XAuthenticatedUserEmail]
 
-                        log.info("user_id: $xAuthenticatedUserId, email  : $xAuthenticatedUserEmail")
+                        call.request.headers.forEach { string, strings ->
+                            log.info("$string: ${strings[0]}")
+                        }
 
                         call.respondText { "Hello from Management Role API." }
                     }

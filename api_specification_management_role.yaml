@@ -15,12 +15,11 @@ securityDefinitions:
     flow: "implicit"
     type: "oauth2"
     x-google-issuer: "https://securetoken.google.com/terakoya-house-fb"
-    x-google-jwks_uri: "https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com"
+    x-google-jwks_uri: "https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com"
     x-google-audiences: "terakoya-house-fb"
-    x-google-backend:
-      url: https://terakoyalabo-api-management-role-511905671804.asia-northeast1.run.app
-      protocol: h2
-      jwt_audience: https://terakoyalabo-api-management-role-511905671804.asia-northeast1.run.app
+
+security:
+  - firebase: []
 
 paths:
   /api/v1/management-role/graphql:
@@ -38,7 +37,7 @@ paths:
         - jwt_claims: [ 'user_id' ]
           header: "X-Authenticated-User-Id"
         - jwt_claims: [ 'email' ]
-          header: "X-Authenticated-User-email"
+          header: "X-Authenticated-User-Email"
       responses:
         '200':
           description: GraphQL response.
