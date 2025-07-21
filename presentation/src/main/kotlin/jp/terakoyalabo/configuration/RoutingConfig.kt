@@ -15,9 +15,7 @@ fun Application.configureRouting() {
                     // graphQLPostRoute("/graphql")
                     post("/graphql") {
                         val xAuthenticatedUserId = call.request.headers[HttpHeaders.XAuthenticatedUserId]
-                            ?: return@post call.respond(HttpStatusCode.Unauthorized)
                         val xAuthenticatedUserEmail = call.request.headers[HttpHeaders.XAuthenticatedUserEmail]
-                            ?: return@post call.respond(HttpStatusCode.Unauthorized)
 
                         log.info("user_id: $xAuthenticatedUserId, email  : $xAuthenticatedUserEmail")
 
