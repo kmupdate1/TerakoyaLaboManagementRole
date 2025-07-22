@@ -3,6 +3,9 @@
 # FROM gradle:8.13 AS builder
 FROM eclipse-temurin:23-jdk AS builder
 
+# curl と unzip をインストール
+RUN apt-get update && apt-get install -y curl unzip && rm -rf /var/lib/apt/lists/*
+
 # Gradle インストール（zip ダウンロード & 展開）
 ENV GRADLE_VERSION=8.13
 RUN curl -sSLo gradle.zip https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip \
