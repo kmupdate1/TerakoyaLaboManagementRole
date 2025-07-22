@@ -27,8 +27,10 @@ dependencies {
     implementation(Dependencies.Koin.KTOR)
     implementation(Dependencies.Koin.LOGGER_SLF4J)
 
-    implementation(Dependencies.KtorApiGateway.Lax256.CORE)
-    implementation(Dependencies.KtorApiGateway.Lax256.GCP)
+    // implementation(Dependencies.KtorApiGateway.Lax256.CORE)
+    // implementation(Dependencies.KtorApiGateway.Lax256.GCP)
+    implementation(Dependencies.KtorApiGateway.Kmupdate1.CORE)
+    implementation(Dependencies.KtorApiGateway.Kmupdate1.GCP)
 
     implementation(Dependencies.Logback.CLASSIC)
 
