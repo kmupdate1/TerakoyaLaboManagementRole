@@ -12,7 +12,7 @@ class UserQuery: Query {
     fun myProfile(input: UserInfoInput, dfe: DataFetchingEnvironment): UserProfileType =
         UserProfileType(
             userId = dfe.graphQlContext.get(ContextKeys.UserPrincipal.USER_ID),
-            email = dfe.graphQlContext.get(ContextKeys.UserPrincipal.E_MAIL),
+            email = dfe.graphQlContext.get(ContextKeys.UserPrincipal.EMAIL),
             firstName = input.firstName,
             lastName = input.lastName,
             status = "Active",

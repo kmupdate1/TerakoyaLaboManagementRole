@@ -13,7 +13,7 @@ class ManagementRoleContextFactory: KtorGraphQLContextFactory() {
             graphQLContext = request.call.attributes[JwtPayloadKey].let {
                 GraphQLContext.newContext()
                     .put(ContextKeys.UserPrincipal.USER_ID, it.userId)
-                    .put(ContextKeys.UserPrincipal.E_MAIL, it.email)
+                    .put(ContextKeys.UserPrincipal.EMAIL, it.email)
                     .put(ContextKeys.UserPrincipal.AUTH_TIME, it.authTime)
                     .build()
             },
