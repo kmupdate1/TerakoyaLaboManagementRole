@@ -1,3 +1,8 @@
+import org.gradle.api.internal.properties.GradleProperties
+import org.gradle.initialization.GradlePropertiesController
+import org.gradle.kotlin.dsl.support.kotlinCompilerOptions
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     alias { libs.plugins.kotlin.jvm }
     alias { libs.plugins.johnrengelman.shadow }
@@ -34,11 +39,17 @@ dependencies {
     implementation(project(Projects.INFRASTRUCTURE))
 }
 
-tasks.shadowJar {
-    manifest {
-        attributes["Main-Class"] = application.mainClass.get()
+kotlin {
+    jvmToolchain(23)
+}
+
+tasks.apply {
+    shadowJar {
+        manifest {
+            attributes["Main-Class"] = application.mainClass.get()
+        }
+        archiveBaseName.set("service-api-travel")
+        archiveClassifier.set("")
+        archiveVersion.set("")
     }
-    archiveBaseName.set("service-api-travel")
-    archiveClassifier.set("")
-    archiveVersion.set("")
 }
