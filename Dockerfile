@@ -1,6 +1,14 @@
 # --- ステージ1: ビルドステージ ---
 # KotlinとGradleのビルド環境を持つイメージを使用
-FROM gradle:8.13 AS builder
+# FROM gradle:8.13 AS builder
+FROM eclipse-temurin:23-jdk-jammy AS builder
+
+# Gradle インストール（zip ダウンロード & 展開）
+ENV GRADLE_VERSION=8.13
+RUN curl -sSLo gradle.zip https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip \
+    && unzip gradle.zip -d /opt \
+    && rm gradle.zip
+ENV PATH="/opt/gradle-${GRADLE_VERSION}/bin:${PATH}"
 
 # 作業ディレクトリを設定
 WORKDIR /app
