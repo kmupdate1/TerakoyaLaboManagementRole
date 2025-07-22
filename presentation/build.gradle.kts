@@ -17,8 +17,6 @@ dependencies {
     implementation(Dependencies.Ktor.Server.CORE)
     implementation(Dependencies.Ktor.Server.CIO)
     implementation(Dependencies.Ktor.Server.STATUS_PAGES)
-    implementation(Dependencies.Ktor.Server.OPENAPI)
-    implementation(Dependencies.Ktor.Server.SWAGGER)
 
     implementation(Dependencies.GraphQL.Kotlin.KTOR_SERVER)
 
