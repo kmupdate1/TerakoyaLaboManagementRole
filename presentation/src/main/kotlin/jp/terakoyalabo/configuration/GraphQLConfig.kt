@@ -8,6 +8,7 @@ import org.koin.ktor.ext.inject
 
 fun Application.configureGraphQL() {
     val schemaConfig = environment.config.config("graphql.schema")
+    val serverConfig = environment.config.config("graphql.server")
     val engineConfig = environment.config.config("graphql.engine")
 
     val managementRoleContextFactory by inject<KtorGraphQLContextFactory>()
