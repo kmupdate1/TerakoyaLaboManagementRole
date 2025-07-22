@@ -1,7 +1,8 @@
 # --- ステージ1: ビルドステージ ---
 # KotlinとGradleのビルド環境を持つイメージを使用
-# FROM gradle:8.13 AS builder
-FROM eclipse-temurin:23-jdk AS builder
+FROM gradle:8.13-jdk-21-and-24 AS builder
+# FROM eclipse-temurin:23-jdk AS builder
+# FROM eclipse-temurin:21-jdk AS builder
 
 # curl と unzip をインストール
 RUN apt-get update && apt-get install -y curl unzip && rm -rf /var/lib/apt/lists/*
@@ -45,7 +46,8 @@ RUN ./gradlew :presentation:shadowJar
 
 # --- ステージ2: 実行ステージ ---
 # より軽量なJREのみのイメージを使用
-FROM eclipse-temurin:21-jre-jammy
+# FROM eclipse-temurin:21-jre-jammy
+FROM eclipse-temurin:21-jdk
 
 # 環境変数でポートを設定（Cloud Runは通常8080ポートを期待します）
 ENV PORT 8080

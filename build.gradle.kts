@@ -5,8 +5,8 @@ plugins {
 allprojects {
     repositories {
         mavenLocal()
+        maven { url = uri("https://jitpack.io") }
         mavenCentral()
-        maven(url = "https://jitpack.io")
         google()
     }
 }

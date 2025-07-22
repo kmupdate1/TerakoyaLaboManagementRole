@@ -1,7 +1,4 @@
-import org.gradle.api.internal.properties.GradleProperties
-import org.gradle.initialization.GradlePropertiesController
-import org.gradle.kotlin.dsl.support.kotlinCompilerOptions
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias { libs.plugins.kotlin.jvm }
@@ -40,7 +37,10 @@ dependencies {
 }
 
 kotlin {
-    jvmToolchain(23)
+    jvmToolchain(21)
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_21
+    }
 }
 
 tasks.apply {
