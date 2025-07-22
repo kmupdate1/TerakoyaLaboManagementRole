@@ -34,8 +34,8 @@ object Dependencies {
             const val GCP = "jp.lax256:ktor-apigateway-gcp:${Versions.API_GATEWAY}"
         }
         object Kmupdate1 {
-            const val CORE = "com.github.kmupdate1.ktor-apigateway:ktor-apigateway-core:${Versions.MAIN_VERSION}"
-            const val GCP = "com.github.kmupdate1.ktor-apigateway:ktor-apigateway-gcp:${Versions.MAIN_VERSION}"
+            const val CORE = "com.github.kmupdate1.ktor-apigateway:ktor-apigateway-core:${Versions.API_GATEWAY}"
+            const val GCP = "com.github.kmupdate1.ktor-apigateway:ktor-apigateway-gcp:${Versions.API_GATEWAY}"
         }
     }
     object Logback {

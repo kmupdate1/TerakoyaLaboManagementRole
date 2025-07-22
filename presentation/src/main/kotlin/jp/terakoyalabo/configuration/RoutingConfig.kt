@@ -1,7 +1,7 @@
 package jp.terakoyalabo.configuration
 
+import com.expediagroup.graphql.server.ktor.graphQLPostRoute
 import io.ktor.server.application.*
-import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 fun Application.configureRouting() {
@@ -9,11 +9,7 @@ fun Application.configureRouting() {
         route("/api") {
             route("/v1") {
                 route("/management-role") {
-                    // graphQLPostRoute("/graphql")
-                    post("/graphql") {
-
-                        call.respondText { "Hello from Management Role API." }
-                    }
+                    graphQLPostRoute("/graphql")
                 }
             }
         }

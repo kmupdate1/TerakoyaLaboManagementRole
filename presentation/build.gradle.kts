@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias { libs.plugins.kotlin.jvm }
+    alias { libs.plugins.kotlin.plugin.serialization }
     alias { libs.plugins.johnrengelman.shadow }
     id("application")
 }
@@ -14,6 +15,8 @@ application {
 }
 
 dependencies {
+    implementation(Dependencies.Kotlinx.SERIALIZATION)
+
     implementation(Dependencies.Ktor.Server.CORE)
     implementation(Dependencies.Ktor.Server.CIO)
     implementation(Dependencies.Ktor.Server.STATUS_PAGES)
@@ -24,14 +27,15 @@ dependencies {
     implementation(Dependencies.Koin.KTOR)
     implementation(Dependencies.Koin.LOGGER_SLF4J)
 
-    implementation(Dependencies.KtorApiGateway.Kmupdate1.CORE)
-    implementation(Dependencies.KtorApiGateway.Kmupdate1.GCP)
+    implementation(Dependencies.KtorApiGateway.Lax256.CORE)
+    implementation(Dependencies.KtorApiGateway.Lax256.GCP)
+    // implementation(Dependencies.KtorApiGateway.Kmupdate1.CORE)
+    // implementation(Dependencies.KtorApiGateway.Kmupdate1.GCP)
 
     implementation(Dependencies.Logback.CLASSIC)
 
     implementation(project(Projects.COMMON))
     implementation(project(Projects.APPLICATION))
-    implementation(project(Projects.INFRASTRUCTURE))
 }
 
 kotlin {

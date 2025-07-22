@@ -5,5 +5,4 @@ object Versions {
     const val KOIN = "4.1.0"
     const val API_GATEWAY = "1.0.0"
     const val LOGBACK = "1.5.18"
-    const val MAIN_VERSION = "a050110863"
 }
