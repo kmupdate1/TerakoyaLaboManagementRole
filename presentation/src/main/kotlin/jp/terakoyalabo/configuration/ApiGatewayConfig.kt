@@ -7,8 +7,9 @@ import jp.lax256.apigateway.gcp.plugin.GcpApiGateway
 fun Application.configureApiGateway() {
     install(GcpApiGateway) {
         issuePrincipal {
-            issue = true
+            autoIssue = true
         }
+
         vendor = CloudVendor.GCP
     }
 }

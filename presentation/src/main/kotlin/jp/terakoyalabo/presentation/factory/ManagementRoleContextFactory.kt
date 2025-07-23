@@ -10,11 +10,13 @@ import jp.terakoyalabo.common.constant.ContextKeys
 class ManagementRoleContextFactory: KtorGraphQLContextFactory() {
     override suspend fun generateContext(request: ApplicationRequest): GraphQLContext =
         super.generateContext(request).plus(
-            graphQLContext = request.call.attributes[JwtPayloadKey].let {
+            graphQLContext = request.call.attributes[JwtPayloadKey].let { jwtPayload ->
                 GraphQLContext.newContext()
-                    .put(ContextKeys.UserPrincipal.USER_ID, it.userId)
-                    .put(ContextKeys.UserPrincipal.EMAIL, it.email)
-                    .put(ContextKeys.UserPrincipal.AUTH_TIME, it.authTime)
+                    .put(ContextKeys.UserPrincipal.USER_ID, jwtPayload.userId)
+                    .put(ContextKeys.UserPrincipal.EMAIL, jwtPayload.email)
+                    .put(ContextKeys.UserPrincipal.EMAIL_VERIFIED, jwtPayload.emailVerified)
+                    .put(ContextKeys.UserPrincipal.AUTH_TIME, jwtPayload.authTime)
+                    .put(ContextKeys.UserPrincipal.SIGN_IN_PROVIDER, jwtPayload.firebase.signInProvider)
                     .build()
             },
         )
