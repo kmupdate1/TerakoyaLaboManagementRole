@@ -46,3 +46,6 @@ bin/
 
 ### Logs ###
 logs/
+
+### Test Deploy ###
+deploy-to-rpi.sh
