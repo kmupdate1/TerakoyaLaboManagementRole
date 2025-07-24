@@ -12,5 +12,7 @@ dependencies {
 
     implementation(Dependencies.Google.Firebase.ADMIN)
 
+    implementation(Dependencies.Slf4j.API)
+
     implementation(project(Projects.COMMON))
 }

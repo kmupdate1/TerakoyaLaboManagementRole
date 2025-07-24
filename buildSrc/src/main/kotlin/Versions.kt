@@ -7,6 +7,7 @@ object Versions {
     const val FIREBASE = "9.5.0"
     const val KOIN = "4.1.0"
     const val VALIDATOR = "1.10.0"
-    const val API_GATEWAY = "f46614253c" // "1.0.0"
+    const val API_GATEWAY = "86110939a4" // "1.0.0"
+    const val SLF4J = "2.0.17"
     const val LOGBACK = "1.5.18"
 }

@@ -13,6 +13,8 @@ import org.koin.ktor.plugin.Koin
 import org.koin.logger.slf4jLogger
 import org.litote.kmongo.getCollection
 
+private val monitoringModule = module {
+}
 private val contextFactoryModule = module {
     factory<KtorGraphQLContextFactory> { ManagementRoleContextFactory() }
 }
@@ -29,14 +31,15 @@ private val mutationResolverModule = module {
 fun Application.configureDependencyInjection() {
     val mongoDatabase = configureDatabase()
 
-    val collectionModule = module {
+    val dbCollectionModule = module {
         single { mongoDatabase.getCollection<UserProfile>("UserInfo") }
     }
 
     install(Koin) {
         slf4jLogger()
         modules(
-            collectionModule,
+            monitoringModule,
+            dbCollectionModule,
             databaseRepositoryModule,
             contextFactoryModule,
             queryResolverModule, mutationResolverModule

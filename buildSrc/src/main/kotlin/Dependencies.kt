@@ -57,6 +57,9 @@ object Dependencies {
             const val GCP = "com.github.kmupdate1.ktor-apigateway:ktor-apigateway-gcp:${Versions.API_GATEWAY}"
         }
     }
+    object Slf4j {
+        const val API = "org.slf4j:slf4j-api:${Versions.SLF4J}"
+    }
     object Logback {
         const val CLASSIC = "ch.qos.logback:logback-classic:${Versions.LOGBACK}"
     }
