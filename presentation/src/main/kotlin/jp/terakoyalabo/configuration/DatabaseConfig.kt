@@ -38,7 +38,7 @@ fun Application.configureDatabase(): MongoDatabase {
         timeout(10_000, TimeUnit.MILLISECONDS)
         applyToSslSettings { sslSettingsBuilder ->
             sslSettingsBuilder.apply {
-                enabled(false)
+                enabled(true)
             }
         }
     }.build()
