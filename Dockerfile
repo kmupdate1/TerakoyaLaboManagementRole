@@ -52,6 +52,8 @@ FROM eclipse-temurin:21-jdk
 # 環境変数でポートを設定（Cloud Runは通常8080ポートを期待します）
 ENV PORT 8080
 ENV HOST 0.0.0.0
+ENV MONGODB_URI mongodb+srv://laxpotcx1562:4XmylUkUkxGvAjyM@terakoyalabo.f9sfd10.mongodb.net/
+ENV MONGODB_NAME management_role
 
 # ビルドステージで作成したJARファイルをコピー
 COPY --from=builder /app/presentation/build/libs/service-api-travel.jar app.jar

@@ -1,20 +1,19 @@
 object Dependencies {
     object Kotlinx {
-        const val SERIALIZATION = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.KOTLINX}"
+        object Serialization {
+            const val JSON = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.KOTLINX}"
+        }
     }
     object Ktor {
         object Client {
             const val CORE = "io.ktor:ktor-client-core:${Versions.KTOR}"
             const val CIO = "io.ktor:ktor-client-cio:${Versions.KTOR}"
-            const val CONTENT_NEGOTIATION = "io.ktor:ktor-client-content-negotiation:${Versions.KTOR}"
         }
         object Server {
             const val CORE = "io.ktor:ktor-server-core:${Versions.KTOR}"
             const val CIO = "io.ktor:ktor-server-cio:${Versions.KTOR}"
             const val AUTH = "io.ktor:ktor-server-auth:${Versions.KTOR}"
             const val STATUS_PAGES = "io.ktor:ktor-server-status-pages:${Versions.KTOR}"
-            const val OPENAPI = "io.ktor:ktor-server-openapi:${Versions.KTOR}"
-            const val SWAGGER = "io.ktor:ktor-server-swagger:${Versions.KTOR}"
         }
     }
     object GraphQL {
@@ -23,8 +22,16 @@ object Dependencies {
             const val SCHEMA_GENERATOR = "com.expediagroup:graphql-kotlin-schema-generator:${Versions.GRAPHQL}"
         }
     }
+    object MongoDB {
+        const val DRIVER_CORE = "org.mongodb:mongodb-driver-core:${Versions.MONGODB}"
+        const val DRIVER_SYNC = "org.mongodb:mongodb-driver-sync:${Versions.MONGODB}"
+        const val BSON = "org.mongodb:bson:${Versions.MONGODB}"
+        const val BSON_KOTLINX = "org.mongodb:bson-kotlinx:${Versions.MONGODB}"
+    }
     object KMongo {
         const val KMONGO = "org.litote.kmongo:kmongo:${Versions.KMONGO}"
+        const val SERIALIZATION = "org.litote.kmongo:kmongo-serialization:${Versions.KMONGO}"
+
     }
     object Google {
         object Gcp {}

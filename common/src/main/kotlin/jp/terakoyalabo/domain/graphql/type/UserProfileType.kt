@@ -5,6 +5,4 @@ data class UserProfileType(
     val email: String,
     val firstName: String,
     val lastName: String,
-    val status: String,
-    val lastLogin: Int,
 )

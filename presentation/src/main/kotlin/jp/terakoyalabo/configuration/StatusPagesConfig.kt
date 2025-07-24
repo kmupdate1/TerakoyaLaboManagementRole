@@ -4,6 +4,7 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.response.respond
+import jp.terakoyalabo.common.exception.application.CollectionNotFoundException
 import jp.terakoyalabo.common.exception.domain.InvalidFormatException
 
 fun Application.configureStatusPages() {
@@ -30,7 +31,7 @@ fun Application.configureStatusPages() {
                 ),
             )
         }
-        exception<RuntimeException> { call, cause ->
+        exception<CollectionNotFoundException> { call, cause ->
             call.also {
                 it.application.log.error(cause.message)
             }.respond(

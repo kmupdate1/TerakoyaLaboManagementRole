@@ -3,6 +3,7 @@ package jp.terakoyalabo.configuration
 import com.expediagroup.graphql.server.ktor.GraphQL
 import com.expediagroup.graphql.server.ktor.KtorGraphQLContextFactory
 import io.ktor.server.application.*
+import jp.terakoyalabo.application.resolver.mutation.UserMutation
 import jp.terakoyalabo.application.resolver.query.UserQuery
 import org.koin.ktor.ext.inject
 
@@ -14,6 +15,7 @@ fun Application.configureGraphQL() {
     val managementRoleContextFactory by inject<KtorGraphQLContextFactory>()
 
     val userQuery by inject<UserQuery>()
+    val userMutation by inject<UserMutation>()
 
     install(GraphQL) {
         schema {
@@ -22,7 +24,7 @@ fun Application.configureGraphQL() {
                 userQuery,
             )
             mutations = listOf(
-
+                userMutation,
             )
         }
         server {

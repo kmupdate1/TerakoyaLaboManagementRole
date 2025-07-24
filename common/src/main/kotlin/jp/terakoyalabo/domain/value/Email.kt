@@ -5,7 +5,6 @@ import org.apache.commons.validator.routines.EmailValidator
 
 @JvmInline
 value class Email private constructor(private val value: String) {
-
     override fun toString(): String = value
 
     companion object {

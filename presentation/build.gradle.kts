@@ -15,13 +15,16 @@ application {
 }
 
 dependencies {
-    implementation(Dependencies.Kotlinx.SERIALIZATION)
+    implementation(Dependencies.Kotlinx.Serialization.JSON)
 
     implementation(Dependencies.Ktor.Server.CORE)
     implementation(Dependencies.Ktor.Server.CIO)
     implementation(Dependencies.Ktor.Server.STATUS_PAGES)
 
     implementation(Dependencies.GraphQL.Kotlin.KTOR_SERVER)
+
+    implementation(Dependencies.MongoDB.DRIVER_CORE)
+    implementation(Dependencies.KMongo.KMONGO)
 
     implementation(Dependencies.Koin.CORE)
     implementation(Dependencies.Koin.KTOR)
@@ -35,6 +38,7 @@ dependencies {
     implementation(Dependencies.Logback.CLASSIC)
 
     implementation(project(Projects.COMMON))
+    implementation(project(Projects.INFRASTRUCTURE))
     implementation(project(Projects.APPLICATION))
 }
 
@@ -46,6 +50,10 @@ kotlin {
 }
 
 tasks.apply {
+    withType<JavaCompile> {
+        options.compilerArgs.add("-parameters")
+    }
+
     shadowJar {
         manifest {
             attributes["Main-Class"] = application.mainClass.get()
