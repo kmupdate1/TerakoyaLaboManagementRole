@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    implementation(Dependencies.MongoDB.BSON)
+    // implementation(Dependencies.MongoDB.BSON)
 
     implementation(Dependencies.Commons.VALIDATOR)
 }

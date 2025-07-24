@@ -2,7 +2,7 @@ package jp.terakoyalabo.presentation.dto
 
 import jp.lax256.apigateway.core.dto.Claims
 import jp.lax256.apigateway.core.dto.Firebase
-import jp.terakoyalabo.domain.value.Email
+import jp.terakoyalabo.domain.value.core.Email
 
 data class RequiredClaims(
     val userId: String,

@@ -5,8 +5,7 @@ import com.mongodb.MongoClientSettings
 import com.mongodb.client.MongoClients
 import com.mongodb.client.MongoDatabase
 import io.ktor.server.application.*
-import jp.lax256.infrastructure.common.util.MongoDBMonitoring
-import jp.terakoyalabo.common.util.codec.EmailCodec
+import jp.terakoyalabo.infrastructure.database.common.util.MongoDBMonitoring
 import org.bson.codecs.configuration.CodecRegistries
 import org.bson.codecs.pojo.PojoCodecProvider
 import java.util.concurrent.TimeUnit
@@ -26,9 +25,25 @@ fun Application.configureDatabase(): MongoDatabase {
         CodecRegistries.fromProviders(
             pojoCodecProvider,
         ),
+        /*
         CodecRegistries.fromCodecs(
+            CountryCodec(),
+            DateOfBirthCodec(),
+            DisplayNameCodec(),
             EmailCodec(),
+            FamilyNameCodec(),
+            FamilyNameKanaCodec(),
+            FirstNameCodec(),
+            FirstNameKanaCodec(),
+            GenderCodec(),
+            InterestCodec(),
+            OccupationCodec(),
+            PhoneNumberCodec(),
+            PostalCodeCodec(),
+            SelfIntroductionCodec(),
+            UserIdCodec(),
         ),
+        */
     )
 
     val settings = MongoClientSettings.builder().apply {
@@ -39,7 +54,19 @@ fun Application.configureDatabase(): MongoDatabase {
         applyToSslSettings { sslSettingsBuilder ->
             sslSettingsBuilder.apply {
                 enabled(false)
+                invalidHostNameAllowed(true)
             }
+        }
+        applyToClusterSettings { builder ->
+            builder.serverSelectionTimeout(30, TimeUnit.SECONDS)
+        }
+        applyToConnectionPoolSettings { builder ->
+            builder.maxWaitTime(20, TimeUnit.SECONDS)
+            builder.maxConnectionIdleTime(5, TimeUnit.MINUTES)
+        }
+        applyToSocketSettings { builder ->
+            builder.connectTimeout(10, TimeUnit.SECONDS)
+            builder.readTimeout(0, TimeUnit.MILLISECONDS)
         }
     }.build()
 
