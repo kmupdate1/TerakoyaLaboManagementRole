@@ -3,7 +3,7 @@
     <property file="logback.properties" />
 
     <property name="LOG_FILE_NAME" value="${LOG_FILE_NAME:-travel}" />
-    <property name="LOG_FILE_PATH" value="${LOG_FILE_PATH:-logs/dev}" />
+    <property name="LOG_FILE_PATH" value="${LOG_FILE_PATH:-/usr/local/src/terakoyalabo/TerakoyaLaboManagementRole/logs/dev}" />
     <property name="LOG_MAX_HISTORY_DAYS" value="${LOG_MAX_HISTORY_DAYS:-7}" />
     <property name="LOG_TOTAL_SIZE_CAP_GB" value="${LOG_TOTAL_SIZE_CAP_GB:-1}" />
     <property name="LOG_MAX_FILE_SIZE_MB" value="${LOG_MAX_FILE_SIZE_MB:-100}" />

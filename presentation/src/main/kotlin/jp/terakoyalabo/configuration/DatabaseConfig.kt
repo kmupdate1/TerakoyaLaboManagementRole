@@ -9,6 +9,7 @@ import jp.lax256.infrastructure.common.util.MongoDBMonitoring
 import jp.terakoyalabo.common.util.codec.EmailCodec
 import org.bson.codecs.configuration.CodecRegistries
 import org.bson.codecs.pojo.PojoCodecProvider
+import java.util.concurrent.TimeUnit
 
 fun Application.configureDatabase(): MongoDatabase {
     val mongodbConfig = environment.config.config("database.mongodb")
@@ -34,6 +35,12 @@ fun Application.configureDatabase(): MongoDatabase {
         applyConnectionString(ConnectionString(mongodbUri))
         addCommandListener(MongoDBMonitoring())
         codecRegistry(codecRegistry)
+        timeout(10_000, TimeUnit.MILLISECONDS)
+        applyToSslSettings { sslSettingsBuilder ->
+            sslSettingsBuilder.apply {
+                enabled(false)
+            }
+        }
     }.build()
 
     val mongoInstance = mongodbUri + mongodbName

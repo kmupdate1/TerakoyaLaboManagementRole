@@ -1,4 +1,4 @@
-package jp.terakoyalabo.domain.entity
+package jp.terakoyalabo.domain.collection
 
 import jp.terakoyalabo.domain.value.Email
 import org.bson.codecs.pojo.annotations.BsonCreator

@@ -5,7 +5,7 @@ import io.ktor.server.application.*
 import jp.lax256.infrastructure.repository.database.UserInfoRepositoryImpl
 import jp.terakoyalabo.application.resolver.mutation.UserMutation
 import jp.terakoyalabo.application.resolver.query.UserQuery
-import jp.terakoyalabo.domain.entity.UserProfile
+import jp.terakoyalabo.domain.collection.UserProfile
 import jp.terakoyalabo.domain.repository.database.UserInfoRepository
 import jp.terakoyalabo.presentation.factory.ManagementRoleContextFactory
 import org.koin.dsl.module

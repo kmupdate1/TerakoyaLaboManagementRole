@@ -4,7 +4,7 @@ import com.expediagroup.graphql.generator.annotations.GraphQLDescription
 import com.expediagroup.graphql.server.operations.Mutation
 import graphql.schema.DataFetchingEnvironment
 import jp.terakoyalabo.common.constant.ContextKeys
-import jp.terakoyalabo.domain.entity.UserProfile
+import jp.terakoyalabo.domain.collection.UserProfile
 import jp.terakoyalabo.domain.graphql.input.UserInfoInput
 import jp.terakoyalabo.domain.repository.database.UserInfoRepository
 import jp.terakoyalabo.domain.value.Email

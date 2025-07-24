@@ -1,7 +1,7 @@
 package jp.lax256.infrastructure.repository.database
 
 import com.mongodb.client.MongoCollection
-import jp.terakoyalabo.domain.entity.UserProfile
+import jp.terakoyalabo.domain.collection.UserProfile
 import jp.terakoyalabo.domain.repository.database.UserInfoRepository
 import jp.terakoyalabo.domain.value.ObjectId
 import org.litote.kmongo.eq
