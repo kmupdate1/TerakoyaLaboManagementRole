@@ -3,8 +3,13 @@ package jp.terakoyalabo.configuration
 import com.expediagroup.graphql.server.ktor.GraphQL
 import com.expediagroup.graphql.server.ktor.KtorGraphQLContextFactory
 import io.ktor.server.application.*
-import jp.terakoyalabo.application.resolver.mutation.UserInfoMutation
-import jp.terakoyalabo.application.resolver.query.UserInfoQuery
+import jp.terakoyalabo.application.resolver.mutation.BaseProfileMutation
+import jp.terakoyalabo.application.resolver.mutation.CoreInformationMutation
+import jp.terakoyalabo.application.resolver.mutation.SystemUtilityMutation
+import jp.terakoyalabo.application.resolver.mutation.ExtendedProfileMutation
+import jp.terakoyalabo.application.resolver.query.BaseProfileQuery
+import jp.terakoyalabo.application.resolver.query.CoreInformationQuery
+import jp.terakoyalabo.application.resolver.query.ExtendedProfileQuery
 import org.koin.ktor.ext.inject
 
 fun Application.configureGraphQL() {
@@ -14,24 +19,33 @@ fun Application.configureGraphQL() {
 
     val managementRoleContextFactory by inject<KtorGraphQLContextFactory>()
 
-    val userInfoQuery by inject<UserInfoQuery>()
-    val userInfoMutation by inject<UserInfoMutation>()
+    val coreInformationQuery by inject<CoreInformationQuery>()
+    val baseProfileQuery by inject<BaseProfileQuery>()
+    val extendedProfileQuery by inject<ExtendedProfileQuery>()
+
+    val coreInformationMutation by inject<CoreInformationMutation>()
+    val baseProfileMutation by inject<BaseProfileMutation>()
+    val extendedProfileMutation by inject<ExtendedProfileMutation>()
+    val systemUtilityMutation by inject<SystemUtilityMutation>()
 
     install(GraphQL) {
-        schema {
-            packages = schemaConfig.property("packages").getList()
-            queries = listOf(
-                userInfoQuery,
-            )
-            mutations = listOf(
-                userInfoMutation,
-            )
-        }
         server {
             contextFactory = managementRoleContextFactory
         }
-        engine {
-
+        schema {
+            packages = schemaConfig.property("packages").getList()
+            queries = listOf(
+                coreInformationQuery,
+                baseProfileQuery,
+                extendedProfileQuery,
+            )
+            mutations = listOf(
+                coreInformationMutation,
+                baseProfileMutation,
+                extendedProfileMutation,
+                systemUtilityMutation
+            )
         }
+        engine {}
     }
 }

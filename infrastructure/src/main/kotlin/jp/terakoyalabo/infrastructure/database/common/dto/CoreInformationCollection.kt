@@ -11,6 +11,7 @@ data class CoreInformationCollection(
     @BsonProperty("email") val email: String,
     @BsonProperty("email_verified") val emailVerified: Boolean,
     @BsonProperty("sign_in_provider") val signInProvider: String,
+    @BsonProperty("disable") val disabled: Boolean = false,
     @BsonProperty("created_at") val createdAt: Long,
     @BsonProperty("updated_at") val updatedAt: Long,
     @BsonProperty("created_by") val createdBy: String,

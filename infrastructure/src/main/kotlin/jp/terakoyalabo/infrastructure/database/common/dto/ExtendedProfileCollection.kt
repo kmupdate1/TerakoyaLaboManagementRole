@@ -17,6 +17,7 @@ data class ExtendedProfileCollection(
     @BsonProperty("occupation") val occupation: String,
     @BsonProperty("self_introduction") val selfIntroduction: String,
     @BsonProperty("interests") val interests: List<String>,
+    @BsonProperty("disabled") val disabled: Boolean = false,
     @BsonProperty("created_at") val createdAt: Long,
     @BsonProperty("updated_at") val updatedAt: Long,
     @BsonProperty("created_by") val createdBy: String,

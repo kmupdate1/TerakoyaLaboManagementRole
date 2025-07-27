@@ -13,6 +13,7 @@ data class BaseProfileCollection(
     @BsonProperty("first_name_kana") val firstNameKana: String,
     @BsonProperty("family_name_kana") val familyNameKana: String,
     @BsonProperty("display_name") val displayName: String,
+    @BsonProperty("disabled") val disabled: Boolean = false,
     @BsonProperty("created_at") val createdAt: Long,
     @BsonProperty("updated_at") val updatedAt: Long,
     @BsonProperty("created_by") val createdBy: String,
