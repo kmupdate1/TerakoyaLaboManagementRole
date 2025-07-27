@@ -5,8 +5,7 @@ import com.mongodb.MongoClientSettings
 import com.mongodb.client.MongoClients
 import com.mongodb.client.MongoDatabase
 import io.ktor.server.application.*
-import jp.lax256.infrastructure.common.util.MongoDBMonitoring
-import jp.terakoyalabo.common.util.codec.EmailCodec
+import jp.terakoyalabo.infrastructure.database.common.util.MongoDBMonitoring
 import org.bson.codecs.configuration.CodecRegistries
 import org.bson.codecs.pojo.PojoCodecProvider
 import java.util.concurrent.TimeUnit
@@ -26,9 +25,7 @@ fun Application.configureDatabase(): MongoDatabase {
         CodecRegistries.fromProviders(
             pojoCodecProvider,
         ),
-        CodecRegistries.fromCodecs(
-            EmailCodec(),
-        ),
+        CodecRegistries.fromCodecs(),
     )
 
     val settings = MongoClientSettings.builder().apply {
