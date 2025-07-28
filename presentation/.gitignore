@@ -1,3 +1,6 @@
 ### Logback ###
 src/main/resources/logback-dev.xml
 src/test/resources/logback-test.xml
+
+### Firebase ###
+src/main/resources/*.json

@@ -1,6 +1,6 @@
 package jp.terakoyalabo.domain.repository.database
 
-import jp.terakoyalabo.domain.entity.ExtendedProfile
+import jp.terakoyalabo.domain.entity.database.ExtendedProfile
 import jp.terakoyalabo.domain.value.core.UserId
 
 interface ExtendedProfileRepository {

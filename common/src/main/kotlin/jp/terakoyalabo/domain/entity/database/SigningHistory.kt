@@ -1,4 +1,4 @@
-package jp.terakoyalabo.domain.entity
+package jp.terakoyalabo.domain.entity.database
 
 data class SigningHistory(
     val authTime: Long,

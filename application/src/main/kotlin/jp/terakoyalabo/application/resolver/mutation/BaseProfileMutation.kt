@@ -7,7 +7,7 @@ import jp.terakoyalabo.application.schema.common.ResponseStatus
 import jp.terakoyalabo.application.schema.input.BaseProfileInput
 import jp.terakoyalabo.application.schema.type.ResponseType
 import jp.terakoyalabo.common.constant.ContextKeys
-import jp.terakoyalabo.domain.entity.BaseProfile
+import jp.terakoyalabo.domain.entity.database.BaseProfile
 import jp.terakoyalabo.domain.repository.database.BaseProfileRepository
 import jp.terakoyalabo.domain.value.base.*
 import jp.terakoyalabo.domain.value.core.UserId

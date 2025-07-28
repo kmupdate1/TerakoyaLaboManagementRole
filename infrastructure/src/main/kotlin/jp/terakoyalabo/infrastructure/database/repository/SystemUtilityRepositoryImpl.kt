@@ -3,7 +3,7 @@ package jp.terakoyalabo.infrastructure.database.repository
 import jp.terakoyalabo.infrastructure.database.common.dto.SigningHistoryCollection
 import jp.terakoyalabo.infrastructure.database.interaction.SystemUtilityInteraction
 import jp.terakoyalabo.common.exception.infrastructure.DocumentCreateFailedException
-import jp.terakoyalabo.domain.entity.SigningHistory
+import jp.terakoyalabo.domain.entity.database.SigningHistory
 import jp.terakoyalabo.domain.repository.database.SystemUtilityRepository
 import jp.terakoyalabo.domain.value.core.UserId
 

@@ -1,4 +1,4 @@
-package jp.terakoyalabo.domain.entity
+package jp.terakoyalabo.domain.entity.database
 
 import jp.terakoyalabo.domain.value.base.*
 

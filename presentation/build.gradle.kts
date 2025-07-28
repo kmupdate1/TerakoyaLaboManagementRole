@@ -39,6 +39,8 @@ dependencies {
 
     implementation(Dependencies.Logback.CLASSIC)
 
+    implementation(Dependencies.Google.Firebase.ADMIN)
+
     implementation(project(Projects.COMMON))
     implementation(project(Projects.INFRASTRUCTURE))
     implementation(project(Projects.APPLICATION))

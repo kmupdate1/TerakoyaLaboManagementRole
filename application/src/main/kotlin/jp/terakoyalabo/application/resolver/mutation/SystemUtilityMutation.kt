@@ -6,7 +6,7 @@ import graphql.schema.DataFetchingEnvironment
 import jp.terakoyalabo.application.schema.common.ResponseStatus
 import jp.terakoyalabo.application.schema.type.ResponseType
 import jp.terakoyalabo.common.constant.ContextKeys
-import jp.terakoyalabo.domain.entity.SigningHistory
+import jp.terakoyalabo.domain.entity.database.SigningHistory
 import jp.terakoyalabo.domain.repository.database.SystemUtilityRepository
 import jp.terakoyalabo.domain.value.core.UserId
 

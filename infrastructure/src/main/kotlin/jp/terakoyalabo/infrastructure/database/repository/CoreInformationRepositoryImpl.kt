@@ -4,7 +4,7 @@ import jp.terakoyalabo.common.exception.infrastructure.DocumentCreateFailedExcep
 import jp.terakoyalabo.common.exception.infrastructure.DocumentDeleteFailedException
 import jp.terakoyalabo.common.exception.infrastructure.DocumentNotFoundException
 import jp.terakoyalabo.common.exception.infrastructure.DocumentUpdateFailedException
-import jp.terakoyalabo.domain.entity.CoreInformation
+import jp.terakoyalabo.domain.entity.database.CoreInformation
 import jp.terakoyalabo.domain.repository.database.CoreInformationRepository
 import jp.terakoyalabo.domain.value.core.Email
 import jp.terakoyalabo.domain.value.core.UserId

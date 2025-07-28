@@ -3,7 +3,7 @@ package jp.terakoyalabo.infrastructure.database.repository
 import jp.terakoyalabo.common.exception.infrastructure.DocumentDeleteFailedException
 import jp.terakoyalabo.common.exception.infrastructure.DocumentNotFoundException
 import jp.terakoyalabo.common.exception.infrastructure.DocumentUpdateFailedException
-import jp.terakoyalabo.domain.entity.BaseProfile
+import jp.terakoyalabo.domain.entity.database.BaseProfile
 import jp.terakoyalabo.domain.repository.database.BaseProfileRepository
 import jp.terakoyalabo.domain.value.base.DisplayName
 import jp.terakoyalabo.domain.value.base.FamilyName
