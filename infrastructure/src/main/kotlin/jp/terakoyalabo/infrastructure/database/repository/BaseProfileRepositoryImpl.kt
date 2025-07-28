@@ -23,7 +23,7 @@ class BaseProfileRepositoryImpl(
     ) {
         val now = System.currentTimeMillis()
 
-        val collection = BaseProfileCollection(
+        val profile = BaseProfileCollection(
             userId = userId.toString(),
             firstName = entity.firstName.toString(),
             familyName = entity.familyName.toString(),
@@ -36,7 +36,7 @@ class BaseProfileRepositoryImpl(
             updatedBy = userId.toString(),
         )
 
-        return interaction.createBaseProfile(collection = collection)?.run {}
+        return interaction.createBaseProfile(profile = profile)?.run {}
             ?: throw DocumentNotFoundException("Failed to create base profile.")
     }
 
@@ -63,7 +63,7 @@ class BaseProfileRepositoryImpl(
     ) {
         val now = System.currentTimeMillis()
 
-        val collection = BaseProfileCollection(
+        val profile = BaseProfileCollection(
             userId = userId.toString(),
             firstName = entity.firstName.toString(),
             familyName = entity.familyName.toString(),
@@ -76,7 +76,7 @@ class BaseProfileRepositoryImpl(
             updatedBy = userId.toString(),
         )
 
-        return interaction.updateBaseProfile(collection = collection)?.run {}
+        return interaction.updateBaseProfile(profile = profile)?.run {}
             ?: throw DocumentUpdateFailedException("Failed to update base profile.")
     }
 

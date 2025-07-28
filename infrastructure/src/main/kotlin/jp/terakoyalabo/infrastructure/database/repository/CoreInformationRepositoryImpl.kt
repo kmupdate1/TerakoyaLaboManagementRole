@@ -31,7 +31,7 @@ class CoreInformationRepositoryImpl(
             updatedBy = userId.toString(),
         )
 
-        return interaction.createCoreInformation(collection = collection)?.run {}
+        return interaction.createCoreInformation(information = collection)?.run {}
             ?: throw DocumentCreateFailedException("Failed to create user core information.")
     }
 
@@ -63,7 +63,7 @@ class CoreInformationRepositoryImpl(
             updatedBy = userId.toString(),
         )
 
-        return interaction.updateCoreInformation(collection = collection)?.run {}
+        return interaction.updateCoreInformation(information = collection)?.run {}
             ?: throw DocumentUpdateFailedException("Failed to update user core information.")
     }
 

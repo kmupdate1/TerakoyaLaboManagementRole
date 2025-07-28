@@ -1,6 +1,7 @@
 package jp.terakoyalabo.infrastructure.database.interaction
 
 import com.mongodb.client.MongoDatabase
+import com.mongodb.client.model.Updates.set
 import com.mongodb.client.result.DeleteResult
 import com.mongodb.client.result.InsertOneResult
 import com.mongodb.client.result.UpdateResult
@@ -12,68 +13,47 @@ import org.litote.kmongo.*
 
 class CoreInformationInteraction(
     private val database: MongoDatabase,
-) {
-    fun createCoreInformation(collection: CoreInformationCollection): InsertOneResult? =
-        database.getCollection<CoreInformationCollection>("core_information").also {
-            it.findOne(
-                and(
-                    CoreInformationCollection::userId eq collection.userId,
-                    CoreInformationCollection::disabled eq false,
-                )
-            ) ?: throw DocumentCreateFailedException("No document found for create.")
-        }.insertOne(collection)
-    
+): BaseInteraction() {
+    fun createCoreInformation(information: CoreInformationCollection): InsertOneResult? {
+        val document = collection.findOne(enabledFilter(userId = information.userId))
+        if (document != null)
+            throw DocumentCreateFailedException("No document found for create.")
+
+        return collection.insertOne(information)
+    }
+
     fun referenceCoreInformation(userId: String): CoreInformationCollection? =
-        database.getCollection<CoreInformationCollection>("core_information")
-            .findOne(
-                and(
-                    CoreInformationCollection::userId eq userId,
-                    CoreInformationCollection::disabled eq false,
-                )
-            )
+        collection.findOne(enabledFilter(userId = userId))
 
-    fun updateCoreInformation(collection: CoreInformationCollection): UpdateResult? =
-        database.getCollection<CoreInformationCollection>("core_information").also {
-            it.findOne(
-                and(
-                    CoreInformationCollection::userId eq collection.userId,
-                    CoreInformationCollection::disabled eq false,
-                )
-            ) ?: throw DocumentUpdateFailedException("No document found for update.")
-        }.updateOne(
-            CoreInformationCollection::userId eq collection.userId,
-            combine(
-                set(SetTo(CoreInformationCollection::signInProvider, collection.signInProvider)),
-                set(SetTo(CoreInformationCollection::emailVerified, collection.emailVerified)),
-                set(SetTo(CoreInformationCollection::updatedAt, collection.updatedAt)),
-                set(SetTo(CoreInformationCollection::updatedBy, collection.updatedBy)),
-            ),
-        )
+    fun updateCoreInformation(information: CoreInformationCollection): UpdateResult? = collection.also {
+        it.findOne(enabledFilter(userId = information.userId))
+            ?: throw DocumentUpdateFailedException("No document found for update.")
+    }.updateOne(
+        enabledFilter(userId = information.userId),
+        combine(
+            set("sign_in_provider", information.signInProvider),
+            set("email_verified", information.emailVerified),
+            set("updated_at", information.updatedAt),
+            set("updated_by", information.updatedBy),
+        ),
+    )
 
-    fun deleteLogicallyCoreInformation(userId: String, updatedAt: Long): UpdateResult? =
-        database.getCollection<CoreInformationCollection>("core_information").also {
-            it.findOne(
-                and(
-                    CoreInformationCollection::userId eq userId,
-                    CoreInformationCollection::disabled eq false,
-                )
-            ) ?: throw DocumentDeleteFailedException("No document found for delete logically.")
-        }.updateOne(
-            CoreInformationCollection::userId eq userId,
-            combine(
-                set(SetTo(CoreInformationCollection::disabled, true)),
-                set(SetTo(CoreInformationCollection::updatedAt, updatedAt)),
-                set(SetTo(CoreInformationCollection::updatedBy, userId)),
-            ),
-        )
+    fun deleteLogicallyCoreInformation(userId: String, updatedAt: Long): UpdateResult? = collection.also {
+        it.findOne(enabledFilter(userId = userId))
+            ?: throw DocumentDeleteFailedException("No document found for delete logically.")
+    }.updateOne(
+        enabledFilter(userId = userId),
+        combine(
+            set("disabled", true),
+            set("updated_at", updatedAt),
+            set("updated_by", userId),
+        ),
+    )
 
-    fun deletePhysicallyCoreInformation(userId: String): DeleteResult? =
-        database.getCollection<CoreInformationCollection>("core_information").also {
-            it.findOne(
-                and(
-                    CoreInformationCollection::userId eq userId,
-                    CoreInformationCollection::disabled eq true,
-                )
-            ) ?: throw DocumentDeleteFailedException("No document found for delete physically.")
-        }.deleteOne(CoreInformationCollection::userId eq userId)
+    fun deletePhysicallyCoreInformation(userId: String): DeleteResult? = collection.also {
+        it.findOne(disabledFilter(userId = userId))
+            ?: throw DocumentDeleteFailedException("No document found for delete physically.")
+    }.deleteOne(disabledFilter(userId = userId))
+
+    private val collection get() = database.getCollection<CoreInformationCollection>("core_information")
 }

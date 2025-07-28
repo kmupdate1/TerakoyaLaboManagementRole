@@ -1,3 +1,5 @@
+package main
+
 object Dependencies {
     object Kotlinx {
         object Serialization {

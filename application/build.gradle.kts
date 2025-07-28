@@ -1,3 +1,6 @@
+import main.Dependencies
+import main.Projects
+
 plugins {
     alias { libs.plugins.kotlin.jvm }
 }

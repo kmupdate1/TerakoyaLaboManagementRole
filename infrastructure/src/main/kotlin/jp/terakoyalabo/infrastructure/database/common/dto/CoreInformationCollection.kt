@@ -1,12 +1,12 @@
 package jp.terakoyalabo.infrastructure.database.common.dto
 
+import org.bson.codecs.pojo.annotations.BsonCreator
 import org.bson.codecs.pojo.annotations.BsonId
 import org.bson.codecs.pojo.annotations.BsonProperty
 import org.bson.types.ObjectId
 
-data class CoreInformationCollection(
-    @BsonId
-    @BsonProperty("_id") val coreInformationId: ObjectId = ObjectId(),
+data class CoreInformationCollection @BsonCreator constructor(
+    @BsonProperty("_id") @BsonId val coreInformationId: ObjectId = ObjectId(),
     @BsonProperty("user_id") val userId: String,
     @BsonProperty("email") val email: String,
     @BsonProperty("email_verified") val emailVerified: Boolean,

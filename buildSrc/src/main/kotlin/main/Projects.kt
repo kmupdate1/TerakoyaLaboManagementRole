@@ -1,3 +1,5 @@
+package main
+
 object Projects {
     object Shared {
         const val COMMON = ":shared:common"

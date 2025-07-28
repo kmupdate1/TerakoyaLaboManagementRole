@@ -1,3 +1,5 @@
+package main
+
 object Versions {
     const val KOTLINX = "1.9.0"
     const val KTOR = "3.2.2"

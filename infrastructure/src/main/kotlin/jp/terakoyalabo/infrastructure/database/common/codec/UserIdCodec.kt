@@ -1,23 +1,23 @@
-package jp.terakoyalabo.infrastructure.database.common.util
+package jp.terakoyalabo.infrastructure.database.common.codec
 
-import jp.terakoyalabo.domain.value.base.FirstName
+import jp.terakoyalabo.domain.value.core.UserId
 import org.bson.BsonReader
 import org.bson.BsonWriter
 import org.bson.codecs.Codec
 import org.bson.codecs.DecoderContext
 import org.bson.codecs.EncoderContext
 
-class FirstNameCodec: Codec<FirstName> {
+class UserIdCodec: Codec<UserId> {
     override fun encode(
         p0: BsonWriter,
-        p1: FirstName,
+        p1: UserId,
         p2: EncoderContext,
     ) { p0.writeString(p1.toString()) }
 
-    override fun getEncoderClass(): Class<FirstName> = FirstName::class.java
+    override fun getEncoderClass(): Class<UserId> = UserId::class.java
 
     override fun decode(
         p0: BsonReader?,
         p1: DecoderContext,
-    ): FirstName = FirstName.init(p0?.readString()).getOrThrow()
+    ): UserId = UserId.init(p0?.readString()).getOrThrow()
 }

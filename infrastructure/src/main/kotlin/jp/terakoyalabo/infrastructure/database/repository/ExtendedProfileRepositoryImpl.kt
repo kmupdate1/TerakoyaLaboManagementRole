@@ -24,11 +24,11 @@ class ExtendedProfileRepositoryImpl(
 ): ExtendedProfileRepository {
     override suspend fun createExtendedProfile(
         userId: UserId,
-        entity: ExtendedProfile
+        entity: ExtendedProfile,
     ) {
         val now = System.currentTimeMillis()
 
-        val collection = ExtendedProfileCollection(
+        val profile = ExtendedProfileCollection(
             userId = userId.toString(),
             gender = entity.gender.toString(),
             dateOfBirth = entity.dateOfBirth.toString(),
@@ -45,7 +45,7 @@ class ExtendedProfileRepositoryImpl(
             updatedBy = userId.toString(),
         )
 
-        return interaction.createExtendedProfile(collection = collection)?.run {}
+        return interaction.createExtendedProfile(profile = profile)?.run {}
             ?: throw DocumentCreateFailedException("Failed to create extended profile.")
     }
 
@@ -80,7 +80,7 @@ class ExtendedProfileRepositoryImpl(
     ) {
         val now = System.currentTimeMillis()
 
-        val collection = ExtendedProfileCollection(
+        val profile = ExtendedProfileCollection(
             userId = userId.toString(),
             gender = entity.gender.toString(),
             dateOfBirth = entity.dateOfBirth.toString(),
@@ -97,7 +97,7 @@ class ExtendedProfileRepositoryImpl(
             updatedBy = userId.toString(),
         )
 
-        return interaction.createExtendedProfile(collection = collection)?.run {}
+        return interaction.updateExtendedProfile(profile = profile)?.run {}
             ?: throw DocumentUpdateFailedException("Failed to update extended profile.")
     }
 

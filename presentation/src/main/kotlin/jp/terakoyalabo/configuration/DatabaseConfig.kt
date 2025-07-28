@@ -17,6 +17,7 @@ fun Application.configureDatabase(): MongoDatabase {
     val mongodbName = mongodbConfig.property("dbname").getString()
 
     val pojoCodecProvider = PojoCodecProvider.builder().apply {
+        register("jp.terakoya.infrastructure.database.common.dto")
         automatic(true)
     }.build()
 
@@ -36,11 +37,12 @@ fun Application.configureDatabase(): MongoDatabase {
         applyToSslSettings { sslSettingsBuilder ->
             sslSettingsBuilder.apply {
                 enabled(false)
-            }
+            }.build()
         }
     }.build()
 
     val mongoInstance = mongodbUri + mongodbName
+
     return runCatching {
         environment.log.info(
             "Attempting to connect to MongoDB instance '{}'.",

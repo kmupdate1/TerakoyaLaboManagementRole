@@ -1,12 +1,12 @@
 package jp.terakoyalabo.infrastructure.database.common.dto
 
+import org.bson.codecs.pojo.annotations.BsonCreator
 import org.bson.codecs.pojo.annotations.BsonId
 import org.bson.codecs.pojo.annotations.BsonProperty
 import org.bson.types.ObjectId
 
-data class SigningHistoryCollection(
-    @BsonId
-    @BsonProperty("_id") val signingHistoryId: ObjectId = ObjectId(),
+data class SigningHistoryCollection @BsonCreator constructor(
+    @BsonProperty("_id") @BsonId val signingHistoryId: ObjectId = ObjectId(),
     @BsonProperty("user_id") val userId: String,
     @BsonProperty("auth_time") val authTime: Long,
     @BsonProperty("created_at") val createdAt: Long,

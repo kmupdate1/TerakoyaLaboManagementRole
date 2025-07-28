@@ -1,4 +1,4 @@
-package jp.terakoyalabo.infrastructure.database.common.util
+package jp.terakoyalabo.infrastructure.database.common.codec
 
 import jp.terakoyalabo.domain.value.extended.SelfIntroduction
 import org.bson.BsonReader

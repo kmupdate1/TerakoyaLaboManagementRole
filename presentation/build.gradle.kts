@@ -1,4 +1,6 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import main.Dependencies
+import main.Projects
 
 plugins {
     alias { libs.plugins.kotlin.jvm }

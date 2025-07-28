@@ -1,12 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import main.Dependencies
 
 plugins {
     alias { libs.plugins.kotlin.jvm }
 }
 
 dependencies {
-    // implementation(Dependencies.MongoDB.BSON)
-
     implementation(Dependencies.Commons.VALIDATOR)
 }
 val compileKotlin: KotlinCompile by tasks

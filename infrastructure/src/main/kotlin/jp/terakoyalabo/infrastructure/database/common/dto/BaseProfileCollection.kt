@@ -1,12 +1,12 @@
 package jp.terakoyalabo.infrastructure.database.common.dto
 
+import org.bson.codecs.pojo.annotations.BsonCreator
 import org.bson.codecs.pojo.annotations.BsonId
 import org.bson.codecs.pojo.annotations.BsonProperty
 import org.bson.types.ObjectId
 
-data class BaseProfileCollection(
-    @BsonId
-    @BsonProperty("_id") val baseProfileId: ObjectId = ObjectId(),
+data class BaseProfileCollection @BsonCreator constructor(
+    @BsonProperty("_id") @BsonId val baseProfileId: ObjectId = ObjectId(),
     @BsonProperty("user_id") val userId: String,
     @BsonProperty("first_name") val firstName: String,
     @BsonProperty("family_name") val familyName: String,

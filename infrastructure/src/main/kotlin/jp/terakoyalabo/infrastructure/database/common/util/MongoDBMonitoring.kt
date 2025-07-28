@@ -17,6 +17,7 @@ class MongoDBMonitoring: CommandListener {
             event.commandName,
             event.operationId,
         )
+        logger.trace("Command: {}", event.command.toJson())
     }
 
     override fun commandSucceeded(event: CommandSucceededEvent) {

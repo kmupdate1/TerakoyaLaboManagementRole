@@ -1,23 +1,23 @@
-package jp.terakoyalabo.infrastructure.database.common.util
+package jp.terakoyalabo.infrastructure.database.common.codec
 
-import jp.terakoyalabo.domain.value.core.Email
+import jp.terakoyalabo.domain.value.base.FirstNameKana
 import org.bson.BsonReader
 import org.bson.BsonWriter
 import org.bson.codecs.Codec
 import org.bson.codecs.DecoderContext
 import org.bson.codecs.EncoderContext
 
-class EmailCodec: Codec<Email> {
+class FirstNameKanaCodec: Codec<FirstNameKana> {
     override fun encode(
         p0: BsonWriter,
-        p1: Email,
+        p1: FirstNameKana,
         p2: EncoderContext,
     ) { p0.writeString(p1.toString()) }
 
-    override fun getEncoderClass(): Class<Email> = Email::class.java
+    override fun getEncoderClass(): Class<FirstNameKana> = FirstNameKana::class.java
 
     override fun decode(
         p0: BsonReader?,
         p1: DecoderContext,
-    ): Email = Email.init(p0?.readString()).getOrThrow()
+    ): FirstNameKana = FirstNameKana.init(p0?.readString()).getOrThrow()
 }

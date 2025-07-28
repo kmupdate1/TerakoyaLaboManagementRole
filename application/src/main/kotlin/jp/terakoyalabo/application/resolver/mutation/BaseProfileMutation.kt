@@ -81,7 +81,7 @@ class BaseProfileMutation(
         val userId = UserId.init(dfe.graphQlContext.get<String>(ContextKeys.UserPrincipal.USER_ID))
             .getOrThrow()
 
-        repository.deleteLogicallyBaseProfile(userId = userId)
+        repository.deletePhysicallyBaseProfile(userId = userId)
     }.fold(
         onSuccess = { ResponseType(status = ResponseStatus.SUCCESS) },
         onFailure = { ResponseType(status = ResponseStatus.FAILURE, message = "Failed to delete physically base profile: ${it.message}") },
