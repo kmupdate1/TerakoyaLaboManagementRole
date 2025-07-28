@@ -4,3 +4,4 @@ src/test/resources/logback-test.xml
 
 ### Firebase ###
 src/main/resources/*.json
+src/test/resources/*.json
