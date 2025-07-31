@@ -54,6 +54,7 @@ ENV PORT 8080
 ENV HOST 0.0.0.0
 ENV MONGODB_URI mongodb+srv://laxpotcx1562:4XmylUkUkxGvAjyM@terakoyalabo.f9sfd10.mongodb.net/
 ENV MONGODB_NAME management_role
+ENV GCP_PRO_ID terakoya-house-project
 
 # ビルドステージで作成したJARファイルをコピー
 COPY --from=builder /app/presentation/build/libs/service-api-travel.jar app.jar
