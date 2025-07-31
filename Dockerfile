@@ -38,6 +38,7 @@ COPY application application/
 COPY infrastructure infrastructure/
 COPY common common/
 COPY shared shared/
+COPY terakoya-house-project-c42d92bef7c7.json presentation/src/main/resources
 
 # Ktorアプリケーションをビルドし、単一のJARファイルを作成
 # build.gradle.kts に shadowJar プラグインが設定されていることを前提とします
