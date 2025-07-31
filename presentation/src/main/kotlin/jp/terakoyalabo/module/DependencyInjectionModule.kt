@@ -1,15 +1,18 @@
-package jp.terakoyalabo.configuration
+package jp.terakoyalabo.module
 
 import com.expediagroup.graphql.server.ktor.KtorGraphQLContextFactory
+import com.google.cloud.firestore.Firestore
+import com.google.firebase.cloud.FirestoreClient
+import com.mongodb.client.MongoClient
+import com.mongodb.client.MongoClients
 import com.mongodb.client.MongoDatabase
 import io.ktor.server.application.*
-import jp.terakoyalabo.application.resolver.mutation.BaseProfileMutation
-import jp.terakoyalabo.application.resolver.mutation.CoreInformationMutation
-import jp.terakoyalabo.application.resolver.mutation.ExtendedProfileMutation
-import jp.terakoyalabo.application.resolver.mutation.SystemUtilityMutation
+import jp.terakoyalabo.application.resolver.mutation.*
 import jp.terakoyalabo.application.resolver.query.BaseProfileQuery
 import jp.terakoyalabo.application.resolver.query.CoreInformationQuery
 import jp.terakoyalabo.application.resolver.query.ExtendedProfileQuery
+import jp.terakoyalabo.application.resolver.query.PermissionQuery
+import jp.terakoyalabo.configuration.databaseSettings
 import jp.terakoyalabo.domain.repository.database.BaseProfileRepository
 import jp.terakoyalabo.domain.repository.database.CoreInformationRepository
 import jp.terakoyalabo.domain.repository.database.ExtendedProfileRepository
@@ -36,14 +39,17 @@ private val monitoringModule = module {
 private val contextFactoryModule = module {
     factory<KtorGraphQLContextFactory> { ManagementRoleContextFactory() }
 }
+private val externalServiceModule = module {
+    single<Firestore> { FirestoreClient.getFirestore() }
+}
 private val databaseInteractionModule = module {
-    factory { CoreInformationInteraction(get()) }
-    factory { BaseProfileInteraction(get()) }
-    factory { ExtendedProfileInteraction(get()) }
+    factory { CoreInformationInteraction(get(), get()) }
+    factory { BaseProfileInteraction(get(), get()) }
+    factory { ExtendedProfileInteraction(get(), get()) }
     factory { SystemUtilityInteraction(get()) }
 }
 private val webInteractionModule = module {
-    factory { PermissionInteraction() }
+    factory { PermissionInteraction(get()) }
 }
 private val databaseRepositoryModule = module {
     factory<CoreInformationRepository> { CoreInformationRepositoryImpl(get()) }
@@ -58,19 +64,24 @@ private val queryResolverModule = module {
     factory { CoreInformationQuery(get()) }
     factory { BaseProfileQuery(get()) }
     factory { ExtendedProfileQuery(get()) }
+    factory { PermissionQuery(get()) }
 }
 private val mutationResolverModule = module {
     factory { CoreInformationMutation(get()) }
     factory { BaseProfileMutation(get()) }
     factory { ExtendedProfileMutation(get()) }
+    factory { PermissionMutation(get()) }
     factory { SystemUtilityMutation(get()) }
 }
 
 fun Application.configureDependencyInjection() {
-    val mongoDatabase = configureDatabase()
+    val mongodbName = environment.config.property("database.mongodb.dbname").getString()
+    val mongoSettings = databaseSettings()
+    val mongoClient = MongoClients.create(mongoSettings)
 
     val dbCollectionModule = module {
-        single<MongoDatabase> { mongoDatabase }
+        single<MongoClient> { mongoClient }
+        single<MongoDatabase> { mongoClient.getDatabase(mongodbName) }
     }
 
     install(Koin) {
@@ -79,6 +90,7 @@ fun Application.configureDependencyInjection() {
             monitoringModule,
             dbCollectionModule,
             contextFactoryModule,
+            externalServiceModule,
             databaseInteractionModule, databaseRepositoryModule,
             webInteractionModule, webRepositoryModule,
             queryResolverModule, mutationResolverModule

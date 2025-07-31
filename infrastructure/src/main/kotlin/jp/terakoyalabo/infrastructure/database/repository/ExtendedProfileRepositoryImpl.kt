@@ -1,21 +1,10 @@
 package jp.terakoyalabo.infrastructure.database.repository
 
-import jp.terakoyalabo.common.exception.infrastructure.DocumentCreateFailedException
-import jp.terakoyalabo.common.exception.infrastructure.DocumentDeleteFailedException
-import jp.terakoyalabo.common.exception.infrastructure.DocumentNotFoundException
-import jp.terakoyalabo.common.exception.infrastructure.DocumentUpdateFailedException
+import jp.terakoyalabo.common.exception.infrastructure.CollectionOperationFailedException
 import jp.terakoyalabo.domain.entity.database.ExtendedProfile
 import jp.terakoyalabo.domain.repository.database.ExtendedProfileRepository
 import jp.terakoyalabo.domain.value.core.UserId
-import jp.terakoyalabo.domain.value.extended.Address
-import jp.terakoyalabo.domain.value.extended.Country
-import jp.terakoyalabo.domain.value.extended.DateOfBirth
-import jp.terakoyalabo.domain.value.extended.Gender
-import jp.terakoyalabo.domain.value.extended.Interest
-import jp.terakoyalabo.domain.value.extended.Occupation
-import jp.terakoyalabo.domain.value.extended.PhoneNumber
-import jp.terakoyalabo.domain.value.extended.PostalCode
-import jp.terakoyalabo.domain.value.extended.SelfIntroduction
+import jp.terakoyalabo.domain.value.extended.*
 import jp.terakoyalabo.infrastructure.database.common.dto.ExtendedProfileCollection
 import jp.terakoyalabo.infrastructure.database.interaction.ExtendedProfileInteraction
 
@@ -46,7 +35,7 @@ class ExtendedProfileRepositoryImpl(
         )
 
         return interaction.createExtendedProfile(profile = profile)?.run {}
-            ?: throw DocumentCreateFailedException("Failed to create extended profile.")
+            ?: throw CollectionOperationFailedException("Failed to create extended profile.")
     }
 
     override suspend fun referenceExtendedProfile(userId: UserId): ExtendedProfile =
@@ -72,7 +61,7 @@ class ExtendedProfileRepositoryImpl(
                 selfIntroduction = selfIntroduction,
                 interests = interests,
             )
-        } ?: throw DocumentNotFoundException("No extended profile found.")
+        } ?: throw CollectionOperationFailedException("No extended profile found.")
 
     override suspend fun updateExtendedProfile(
         userId: UserId,
@@ -98,17 +87,17 @@ class ExtendedProfileRepositoryImpl(
         )
 
         return interaction.updateExtendedProfile(profile = profile)?.run {}
-            ?: throw DocumentUpdateFailedException("Failed to update extended profile.")
+            ?: throw CollectionOperationFailedException("Failed to update extended profile.")
     }
 
     override suspend fun deleteLogicallyExtendedProfile(userId: UserId) {
         val now = System.currentTimeMillis()
 
         return interaction.deleteLogicallyExtendedProfile(userId = userId.toString(), updatedAt = now)?.run {}
-            ?: throw DocumentUpdateFailedException("Failed to delete logically extended profile.")
+            ?: throw CollectionOperationFailedException("Failed to delete logically extended profile.")
     }
 
     override suspend fun deletePhysicallyExtendedProfile(userId: UserId) =
         interaction.deletePhysicallyExtendedProfile(userId = userId.toString())?.run {}
-            ?: throw DocumentDeleteFailedException("Failed to delete physically extended profile.")
+            ?: throw CollectionOperationFailedException("Failed to delete physically extended profile.")
 }

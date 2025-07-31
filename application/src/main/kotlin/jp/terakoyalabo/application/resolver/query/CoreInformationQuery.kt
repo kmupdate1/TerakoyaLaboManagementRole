@@ -5,7 +5,7 @@ import com.expediagroup.graphql.server.operations.Query
 import graphql.schema.DataFetchingEnvironment
 import jp.terakoyalabo.application.schema.common.ResponseStatus
 import jp.terakoyalabo.application.schema.type.CoreInformationType
-import jp.terakoyalabo.application.schema.type.ResponseType
+import jp.terakoyalabo.application.schema.common.ResponseType
 import jp.terakoyalabo.common.constant.ContextKeys
 import jp.terakoyalabo.domain.repository.database.CoreInformationRepository
 import jp.terakoyalabo.domain.value.core.UserId
@@ -28,6 +28,9 @@ class CoreInformationQuery(
         )
     }.fold(
         onSuccess = { ResponseType(status = ResponseStatus.SUCCESS, data = it) },
-        onFailure = { ResponseType(status = ResponseStatus.FAILURE, message = "Failed to get core information: ${it.message}") },
+        onFailure = { ResponseType(
+            status = ResponseStatus.FAILURE,
+            message = "Failed to get core information: ${it.message}"
+        ) },
     )
 }

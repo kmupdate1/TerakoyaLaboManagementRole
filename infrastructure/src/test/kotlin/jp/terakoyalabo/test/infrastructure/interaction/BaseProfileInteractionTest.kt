@@ -42,7 +42,7 @@ class BaseProfileInteractionTest {
 
     @BeforeEach
     fun setUp() {
-        interaction = BaseProfileInteraction(database = database)
+        interaction = BaseProfileInteraction(database = database, client = TODO())
         every { database.getCollection<BaseProfileCollection>("test_base_profile") }
     }
 

@@ -1,4 +1,4 @@
-package jp.terakoyalabo.configuration
+package jp.terakoyalabo.module
 
 import io.ktor.http.*
 import io.ktor.server.application.*

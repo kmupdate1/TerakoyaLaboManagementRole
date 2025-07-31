@@ -4,7 +4,7 @@ import com.expediagroup.graphql.generator.annotations.GraphQLDescription
 import com.expediagroup.graphql.server.operations.Mutation
 import graphql.schema.DataFetchingEnvironment
 import jp.terakoyalabo.application.schema.common.ResponseStatus
-import jp.terakoyalabo.application.schema.type.ResponseType
+import jp.terakoyalabo.application.schema.common.ResponseType
 import jp.terakoyalabo.common.constant.ContextKeys
 import jp.terakoyalabo.domain.entity.database.CoreInformation
 import jp.terakoyalabo.domain.repository.database.CoreInformationRepository
@@ -31,7 +31,10 @@ class CoreInformationMutation(
         repository.createCoreInformation(userId = userId, entity = entity)
     }.fold(
         onSuccess = { ResponseType(status = ResponseStatus.SUCCESS) },
-        onFailure = { ResponseType(status = ResponseStatus.FAILURE, message = "Failed to create core information: ${it.message}") },
+        onFailure = { ResponseType(
+            status = ResponseStatus.FAILURE,
+            message = "Failed to create core information: ${it.message}"
+        ) },
     )
 
     @GraphQLDescription("MUTATION: Update an user core information by jwt.")
@@ -51,7 +54,10 @@ class CoreInformationMutation(
         repository.updateCoreInformation(userId = userId, entity = entity)
     }.fold(
         onSuccess = { ResponseType(status = ResponseStatus.SUCCESS) },
-        onFailure = { ResponseType(status = ResponseStatus.FAILURE, message = "Failed to update core information: ${it.message}") },
+        onFailure = { ResponseType(
+            status = ResponseStatus.FAILURE,
+            message = "Failed to update core information: ${it.message}"
+        ) },
     )
 
     @GraphQLDescription("MUTATION: Delete logically an user core information by jwt.")
@@ -62,7 +68,10 @@ class CoreInformationMutation(
         repository.deleteLogicallyCoreInformation(userId = userId)
     }.fold(
         onSuccess = { ResponseType(status = ResponseStatus.SUCCESS) },
-        onFailure = { ResponseType(status = ResponseStatus.FAILURE, message = "Failed to delete logically core information: ${it.message}") },
+        onFailure = { ResponseType(
+            status = ResponseStatus.FAILURE,
+            message = "Failed to delete logically core information: ${it.message}"
+        ) },
     )
 
     @GraphQLDescription("MUTATION: Delete physically an user core information by jwt.")
@@ -73,6 +82,9 @@ class CoreInformationMutation(
         repository.deletePhysicallyCoreInformation(userId = userId)
     }.fold(
         onSuccess = { ResponseType(status = ResponseStatus.SUCCESS) },
-        onFailure = { ResponseType(status = ResponseStatus.FAILURE, message = "Failed to delete physically core information: ${it.message}") },
+        onFailure = { ResponseType(
+            status = ResponseStatus.FAILURE,
+            message = "Failed to delete physically core information: ${it.message}"
+        ) },
     )
 }

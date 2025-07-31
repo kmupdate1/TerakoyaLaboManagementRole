@@ -5,7 +5,7 @@ import com.expediagroup.graphql.server.operations.Mutation
 import graphql.schema.DataFetchingEnvironment
 import jp.terakoyalabo.application.schema.common.ResponseStatus
 import jp.terakoyalabo.application.schema.input.BaseProfileInput
-import jp.terakoyalabo.application.schema.type.ResponseType
+import jp.terakoyalabo.application.schema.common.ResponseType
 import jp.terakoyalabo.common.constant.ContextKeys
 import jp.terakoyalabo.domain.entity.database.BaseProfile
 import jp.terakoyalabo.domain.repository.database.BaseProfileRepository
@@ -37,7 +37,10 @@ class BaseProfileMutation(
         repository.createBaseProfile(userId = userId, entity = entity)
     }.fold(
         onSuccess = { ResponseType(status = ResponseStatus.SUCCESS) },
-        onFailure = { ResponseType(status = ResponseStatus.FAILURE, message = "Failed to create base profile: ${it.message}") },
+        onFailure = { ResponseType(
+            status = ResponseStatus.FAILURE,
+            message = "Failed to create base profile: ${it.message}"
+        ) },
     )
 
     @GraphQLDescription("MUTATION: Update an user base profile.")
@@ -62,7 +65,10 @@ class BaseProfileMutation(
         repository.updateBaseProfile(userId = userId, entity = entity)
     }.fold(
         onSuccess = { ResponseType(status = ResponseStatus.SUCCESS) },
-        onFailure = { ResponseType(status = ResponseStatus.FAILURE, message = "Failed to update base profile: ${it.message}") },
+        onFailure = { ResponseType(
+            status = ResponseStatus.FAILURE,
+            message = "Failed to update base profile: ${it.message}"
+        ) },
     )
 
     @GraphQLDescription("MUTATION: Delete logically an user base information.")
@@ -73,7 +79,10 @@ class BaseProfileMutation(
         repository.deleteLogicallyBaseProfile(userId = userId)
     }.fold(
         onSuccess = { ResponseType(status = ResponseStatus.SUCCESS) },
-        onFailure = { ResponseType(status = ResponseStatus.FAILURE, message = "Failed to delete logically base profile: ${it.message}") },
+        onFailure = { ResponseType(
+            status = ResponseStatus.FAILURE,
+            message = "Failed to delete logically base profile: ${it.message}"
+        ) },
     )
 
     @GraphQLDescription("MUTATION: Delete physically an user base information.")
@@ -84,6 +93,9 @@ class BaseProfileMutation(
         repository.deletePhysicallyBaseProfile(userId = userId)
     }.fold(
         onSuccess = { ResponseType(status = ResponseStatus.SUCCESS) },
-        onFailure = { ResponseType(status = ResponseStatus.FAILURE, message = "Failed to delete physically base profile: ${it.message}") },
+        onFailure = { ResponseType(
+            status = ResponseStatus.FAILURE,
+            message = "Failed to delete physically base profile: ${it.message}"
+        ) },
     )
 }

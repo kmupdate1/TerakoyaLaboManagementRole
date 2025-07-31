@@ -1,15 +1,9 @@
 package jp.terakoyalabo.infrastructure.database.repository
 
-import jp.terakoyalabo.common.exception.infrastructure.DocumentDeleteFailedException
-import jp.terakoyalabo.common.exception.infrastructure.DocumentNotFoundException
-import jp.terakoyalabo.common.exception.infrastructure.DocumentUpdateFailedException
+import jp.terakoyalabo.common.exception.infrastructure.CollectionOperationFailedException
 import jp.terakoyalabo.domain.entity.database.BaseProfile
 import jp.terakoyalabo.domain.repository.database.BaseProfileRepository
-import jp.terakoyalabo.domain.value.base.DisplayName
-import jp.terakoyalabo.domain.value.base.FamilyName
-import jp.terakoyalabo.domain.value.base.FamilyNameKana
-import jp.terakoyalabo.domain.value.base.FirstName
-import jp.terakoyalabo.domain.value.base.FirstNameKana
+import jp.terakoyalabo.domain.value.base.*
 import jp.terakoyalabo.domain.value.core.UserId
 import jp.terakoyalabo.infrastructure.database.common.dto.BaseProfileCollection
 import jp.terakoyalabo.infrastructure.database.interaction.BaseProfileInteraction
@@ -37,7 +31,7 @@ class BaseProfileRepositoryImpl(
         )
 
         return interaction.createBaseProfile(profile = profile)?.run {}
-            ?: throw DocumentNotFoundException("Failed to create base profile.")
+            ?: throw CollectionOperationFailedException("Failed to create base profile.")
     }
 
     override suspend fun referenceBaseProfile(userId: UserId): BaseProfile =
@@ -55,7 +49,7 @@ class BaseProfileRepositoryImpl(
                 familyNameKana = familyNameKana,
                 displayName = displayName,
             )
-        } ?: throw DocumentNotFoundException("No base profile found.")
+        } ?: throw CollectionOperationFailedException("No base profile found.")
 
     override suspend fun updateBaseProfile(
         userId: UserId,
@@ -77,17 +71,17 @@ class BaseProfileRepositoryImpl(
         )
 
         return interaction.updateBaseProfile(profile = profile)?.run {}
-            ?: throw DocumentUpdateFailedException("Failed to update base profile.")
+            ?: throw CollectionOperationFailedException("Failed to update base profile.")
     }
 
     override suspend fun deleteLogicallyBaseProfile(userId: UserId) {
         val now = System.currentTimeMillis()
 
         interaction.deleteLogicallyBaseProfile(userId = userId.toString(), updatedAt = now)?.run {}
-            ?: throw DocumentDeleteFailedException("Failed to delete logically base profile.")
+            ?: throw CollectionOperationFailedException("Failed to delete logically base profile.")
     }
 
     override suspend fun deletePhysicallyBaseProfile(userId: UserId) =
         interaction.deletePhysicallyBaseProfile(userId = userId.toString())?.run {}
-            ?: throw DocumentDeleteFailedException("Failed to delete physically base profile.")
+            ?: throw CollectionOperationFailedException("Failed to delete physically base profile.")
 }

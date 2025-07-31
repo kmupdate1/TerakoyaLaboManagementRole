@@ -17,8 +17,6 @@ dependencies {
 
     implementation(Dependencies.Google.Firebase.ADMIN)
 
-    implementation(Dependencies.Koin.CORE)
-
     implementation(Dependencies.Slf4j.API)
 
     implementation(project(Projects.COMMON))

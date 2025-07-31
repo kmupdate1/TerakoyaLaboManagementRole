@@ -5,7 +5,7 @@ import com.expediagroup.graphql.server.operations.Query
 import graphql.schema.DataFetchingEnvironment
 import jp.terakoyalabo.application.schema.common.ResponseStatus
 import jp.terakoyalabo.application.schema.type.ExtendedProfileType
-import jp.terakoyalabo.application.schema.type.ResponseType
+import jp.terakoyalabo.application.schema.common.ResponseType
 import jp.terakoyalabo.common.constant.ContextKeys
 import jp.terakoyalabo.domain.repository.database.ExtendedProfileRepository
 import jp.terakoyalabo.domain.value.core.UserId
@@ -34,6 +34,9 @@ class ExtendedProfileQuery(
         )
     }.fold(
         onSuccess = { ResponseType(status = ResponseStatus.SUCCESS, data = it) },
-        onFailure = { ResponseType(status = ResponseStatus.FAILURE, message = "Failed to get extended profile: ${it.message}") },
+        onFailure = { ResponseType(
+            status = ResponseStatus.FAILURE,
+            message = "Failed to get extended profile: ${it.message}"
+        ) },
     )
 }

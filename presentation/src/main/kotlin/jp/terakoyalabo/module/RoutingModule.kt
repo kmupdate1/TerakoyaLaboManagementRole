@@ -1,4 +1,4 @@
-package jp.terakoyalabo.configuration
+package jp.terakoyalabo.module
 
 import com.expediagroup.graphql.server.ktor.graphQLPostRoute
 import io.ktor.server.application.*

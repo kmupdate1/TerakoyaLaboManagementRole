@@ -5,7 +5,7 @@ import com.expediagroup.graphql.server.operations.Mutation
 import graphql.schema.DataFetchingEnvironment
 import jp.terakoyalabo.application.schema.common.ResponseStatus
 import jp.terakoyalabo.application.schema.input.ExtendedProfileInput
-import jp.terakoyalabo.application.schema.type.ResponseType
+import jp.terakoyalabo.application.schema.common.ResponseType
 import jp.terakoyalabo.common.constant.ContextKeys
 import jp.terakoyalabo.domain.entity.database.ExtendedProfile
 import jp.terakoyalabo.domain.repository.database.ExtendedProfileRepository
@@ -49,7 +49,10 @@ class ExtendedProfileMutation(
         repository.createExtendedProfile(userId = userId, entity = entity)
     }.fold(
         onSuccess = { ResponseType(status = ResponseStatus.SUCCESS) },
-        onFailure = { ResponseType(status = ResponseStatus.FAILURE, message = "Failed to create extended profile: ${it.message}") },
+        onFailure = { ResponseType(
+            status = ResponseStatus.FAILURE,
+            message = "Failed to create extended profile: ${it.message}"
+        ) },
     )
 
     @GraphQLDescription("MUTATION: Update an user extended profile.")
@@ -86,7 +89,10 @@ class ExtendedProfileMutation(
         repository.updateExtendedProfile(userId = userId, entity = entity)
     }.fold(
         onSuccess = { ResponseType(status = ResponseStatus.SUCCESS) },
-        onFailure = { ResponseType(status = ResponseStatus.FAILURE, message = "Failed to update extended profile: ${it.message}") },
+        onFailure = { ResponseType(
+            status = ResponseStatus.FAILURE,
+            message = "Failed to update extended profile: ${it.message}"
+        ) },
     )
 
     @GraphQLDescription("MUTATION: Delete logically an user extended profile.")
@@ -97,7 +103,10 @@ class ExtendedProfileMutation(
         repository.deleteLogicallyExtendedProfile(userId = userId)
     }.fold(
         onSuccess = { ResponseType(status = ResponseStatus.SUCCESS) },
-        onFailure = { ResponseType(status = ResponseStatus.FAILURE, message = "Failed to delete logically extended profile: ${it.message}") },
+        onFailure = { ResponseType(
+            status = ResponseStatus.FAILURE,
+            message = "Failed to delete logically extended profile: ${it.message}"
+        ) },
     )
 
     @GraphQLDescription("MUTATION: Delete physically an user extended profile.")
@@ -108,6 +117,9 @@ class ExtendedProfileMutation(
         repository.deleteLogicallyExtendedProfile(userId = userId)
     }.fold(
         onSuccess = { ResponseType(status = ResponseStatus.SUCCESS) },
-        onFailure = { ResponseType(status = ResponseStatus.FAILURE, message = "Failed to delete physically extended profile: ${it.message}") },
+        onFailure = { ResponseType(
+            status = ResponseStatus.FAILURE,
+            message = "Failed to delete physically extended profile: ${it.message}"
+        ) },
     )
 }

@@ -1,4 +1,4 @@
-package jp.terakoyalabo.configuration
+package jp.terakoyalabo.module
 
 import io.ktor.server.application.*
 import jp.lax256.apigateway.core.CloudVendor

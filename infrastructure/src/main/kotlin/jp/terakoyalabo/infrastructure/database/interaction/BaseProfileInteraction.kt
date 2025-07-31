@@ -1,5 +1,7 @@
 package jp.terakoyalabo.infrastructure.database.interaction
 
+import com.mongodb.client.ClientSession
+import com.mongodb.client.MongoClient
 import com.mongodb.client.MongoDatabase
 import com.mongodb.client.model.Updates.set
 import com.mongodb.client.result.DeleteResult
@@ -9,54 +11,71 @@ import jp.terakoyalabo.common.exception.infrastructure.DocumentCreateFailedExcep
 import jp.terakoyalabo.common.exception.infrastructure.DocumentDeleteFailedException
 import jp.terakoyalabo.common.exception.infrastructure.DocumentUpdateFailedException
 import jp.terakoyalabo.infrastructure.database.common.dto.BaseProfileCollection
-import org.litote.kmongo.*
+import org.litote.kmongo.combine
 
 class BaseProfileInteraction(
-    private val database: MongoDatabase,
-): BaseInteraction() {
-    fun createBaseProfile(profile: BaseProfileCollection): InsertOneResult? {
-        val document = collection.findOne(enabledFilter(userId = profile.userId))
-        if (document != null)
+    override val database: MongoDatabase,
+    client: MongoClient,
+): DatabaseInteraction(
+    client = client,
+    database = database,
+    collectionName = "base_profile",
+) {
+    fun createBaseProfile(profile: BaseProfileCollection): InsertOneResult? = transaction { session ->
+        if (getDocument(session = session, userId = profile.userId) != null)
             throw DocumentCreateFailedException("An active document with the specified information already exists. Cannot create a new document.")
 
-        return collection.insertOne(profile)
+        collection.insertOne(session, profile)
     }
 
-    fun referenceBaseProfile(userId: String): BaseProfileCollection? =
-        collection.findOne(enabledFilter(userId = userId))
+    fun referenceBaseProfile(userId: String): BaseProfileCollection? = transaction { session ->
+        getDocument(session = session, userId = userId)
+    }
 
-    fun updateBaseProfile(profile: BaseProfileCollection): UpdateResult? = collection.also {
-        it.findOne(enabledFilter(userId = profile.userId))
-            ?: throw DocumentUpdateFailedException("No document found for update.")
-    }.updateOne(
-        enabledFilter(userId = profile.userId),
-        combine(
-            set("first_name", profile.firstName),
-            set("first_name_kana", profile.firstNameKana),
-            set("family_name", profile.familyName),
-            set("family_name_kana", profile.familyNameKana),
-            set("display_name", profile.displayName),
-            set("updated_at", profile.updatedAt),
-            set("updated_by", profile.updatedBy),
+    fun updateBaseProfile(profile: BaseProfileCollection): UpdateResult? = transaction { session ->
+        if (getDocument(session = session, userId = profile.userId) == null)
+            throw DocumentUpdateFailedException("No document found for update.")
+
+        collection.updateOne(
+            session,
+            enabledFilter(userId = profile.userId),
+            combine(
+                set("first_name", profile.firstName),
+                set("first_name_kana", profile.firstNameKana),
+                set("family_name", profile.familyName),
+                set("family_name_kana", profile.familyNameKana),
+                set("display_name", profile.displayName),
+                set("updated_at", profile.updatedAt),
+                set("updated_by", profile.updatedBy),
+            ),
         )
-    )
+    }
 
-    fun deleteLogicallyBaseProfile(userId: String, updatedAt: Long): UpdateResult? = collection.also {
-        it.findOne(enabledFilter(userId = userId))
-            ?: throw DocumentDeleteFailedException("No document found for delete logically.")
-    }.updateOne(
-        enabledFilter(userId = userId),
-        combine(
-            set("disabled", true),
-            set("updated_at", updatedAt),
-            set("updated_by", userId),
+    fun deleteLogicallyBaseProfile(userId: String, updatedAt: Long): UpdateResult? = transaction { session ->
+        if (getDocument(session = session, userId = userId) == null)
+            throw DocumentDeleteFailedException("No document found for delete logically.")
+
+        collection.updateOne(
+            session,
+            enabledFilter(userId = userId),
+            combine(
+                set("disabled", true),
+                set("updated_at", updatedAt),
+                set("updated_by", userId),
+            ),
         )
-    )
+    }
 
-    fun deletePhysicallyBaseProfile(userId: String): DeleteResult? = collection.also {
-        it.findOne(disabledFilter(userId = userId))
-            ?: throw DocumentDeleteFailedException("No document found for delete physically.")
-    }.deleteOne(disabledFilter(userId = userId))
+    fun deletePhysicallyBaseProfile(userId: String): DeleteResult? = transaction { session ->
+        if (getDisabledDocument(session = session, userId = userId) == null)
+            throw DocumentDeleteFailedException("No document found for delete physically.")
 
-    private val collection get() = database.getCollection<BaseProfileCollection>("base_profile")
+        collection.deleteOne(session, disabledFilter(userId = userId))
+    }
+
+    private val collection = getCollection<BaseProfileCollection>()
+    private fun getDocument(session: ClientSession, userId: String) =
+        collection.find(session, enabledFilter(userId = userId)).firstOrNull()
+    private fun getDisabledDocument(session: ClientSession, userId: String) =
+        collection.find(session, disabledFilter(userId = userId)).firstOrNull()
 }

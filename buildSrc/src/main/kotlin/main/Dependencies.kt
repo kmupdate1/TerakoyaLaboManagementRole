@@ -2,6 +2,12 @@ package main
 
 object Dependencies {
     object Kotlinx {
+        object Coroutines {
+            const val CORE = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.KOTLINX}"
+            const val CORE_JVM = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:${Versions.KOTLINX}"
+            const val PLAY_SERVICES = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:${Versions.KOTLINX}"
+            const val JDK8 = "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:${Versions.KOTLINX}"
+        }
         object Serialization {
             const val JSON = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.KOTLINX}"
         }
@@ -36,6 +42,10 @@ object Dependencies {
 
     }
     object Google {
+        object Protobuf {
+            const val JAVA = "com.google.protobuf:protobuf-java:${Versions.PROTOBUF}"
+            const val JAVA_UTIL = "com.google.protobuf:protobuf-java-util:${Versions.PROTOBUF}"
+        }
         object Gcp {}
         object Firebase {
             const val ADMIN = "com.google.firebase:firebase-admin:${Versions.FIREBASE}"

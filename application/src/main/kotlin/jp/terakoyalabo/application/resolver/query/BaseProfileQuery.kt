@@ -5,7 +5,7 @@ import com.expediagroup.graphql.server.operations.Query
 import graphql.schema.DataFetchingEnvironment
 import jp.terakoyalabo.application.schema.common.ResponseStatus
 import jp.terakoyalabo.application.schema.type.BaseProfileType
-import jp.terakoyalabo.application.schema.type.ResponseType
+import jp.terakoyalabo.application.schema.common.ResponseType
 import jp.terakoyalabo.common.constant.ContextKeys
 import jp.terakoyalabo.domain.repository.database.BaseProfileRepository
 import jp.terakoyalabo.domain.value.core.UserId
@@ -30,6 +30,9 @@ class BaseProfileQuery(
         )
     }.fold(
         onSuccess = { ResponseType(status = ResponseStatus.SUCCESS, data = it) },
-        onFailure = { ResponseType(status = ResponseStatus.FAILURE, message = "Failed to get base profile: ${it.message}") },
+        onFailure = { ResponseType(
+            status = ResponseStatus.FAILURE,
+            message = "Failed to get base profile: ${it.message}"
+        ) },
     )
 }

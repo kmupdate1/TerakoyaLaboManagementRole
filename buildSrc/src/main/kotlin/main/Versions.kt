@@ -7,6 +7,7 @@ object Versions {
     const val MONGODB = "5.5.1"
     const val KMONGO = "5.2.1"
     const val FIREBASE = "9.5.0"
+    const val PROTOBUF = "4.31.1"
     const val KOIN = "4.1.0"
     const val VALIDATOR = "1.10.0"
     const val API_GATEWAY = "3213776dad" // "1.0.0"
